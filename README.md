@@ -1,187 +1,78 @@
-# Portfolio Professionnel - Développeur Full-Stack
+# ⚡ Amine Arheche — Full-Stack Engineer & Creative Portfolio
 
-Un portfolio professionnel moderne et interactif construit avec React, Tailwind CSS, et Three.js. Ce site présente vos projets, compétences et expériences avec des animations 3D interactives.
+<div align="center">
 
-## 🚀 Fonctionnalités
+> **Modern, High-Performance Developer Portfolio & Sonic Creative Lab.**
 
-- ✨ **Animations 3D interactives** avec React Three Fiber
-- 📱 **Design responsive** optimisé pour tous les appareils
-- 🎨 **Interface moderne** avec Tailwind CSS
-- ⚡ **Performances optimisées** avec lazy loading et code splitting
-- ♿ **Accessibilité** (a11y) avec navigation au clavier et attributs ARIA
-- 🔍 **SEO optimisé** avec meta tags dynamiques
-- 🎭 **Animations fluides** avec Framer Motion
-- 🌐 **Multi-pages** : Accueil, À propos, Projets, CV, Contact
+[![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![Web Audio API](https://img.shields.io/badge/Web_Audio_API-432Hz_DSP-c084fc)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 📋 Prérequis
-
-- Node.js (version 16 ou supérieure)
-- npm ou yarn
-
-## 🛠️ Installation
-
-1. **Clonez le dépôt ou téléchargez les fichiers**
-
-```bash
-git clone <votre-repo>
-cd portfolio-app
-```
-
-2. **Installez les dépendances**
-
-```bash
-npm install
-```
-
-3. **Personnalisez le contenu**
-
-Ouvrez `src/content.js` et remplacez les placeholders :
-- `{{NAME}}` par votre nom
-- `{{GITHUB_URL}}` par votre URL GitHub
-- `{{LINKEDIN_URL}}` par votre URL LinkedIn
-- `{{EMAIL}}` par votre adresse email
-- Ajoutez vos projets, compétences et expériences
-
-4. **Lancez le serveur de développement**
-
-```bash
-npm run dev
-```
-
-Le site sera accessible à l'adresse `http://localhost:3000`
-
-## 📦 Scripts disponibles
-
-- `npm run dev` - Lance le serveur de développement
-- `npm run build` - Crée une version de production dans le dossier `dist`
-- `npm run preview` - Prévisualise la version de production
-- `npm run lint` - Vérifie le code avec ESLint
-
-## 📁 Structure du projet
-
-```
-portfolio-app/
-├── public/                 # Fichiers statiques
-├── src/
-│   ├── components/        # Composants réutilisables
-│   │   ├── Layout.jsx
-│   │   ├── Navbar.jsx
-│   │   ├── Footer.jsx
-│   │   ├── ThreeScene.jsx # Composant 3D
-│   │   ├── ProjectCard.jsx
-│   │   ├── SkillBar.jsx
-│   │   └── SEO.jsx
-│   ├── pages/            # Pages de l'application
-│   │   ├── Home.jsx
-│   │   ├── About.jsx
-│   │   ├── Projects.jsx
-│   │   ├── ProjectDetail.jsx
-│   │   ├── CV.jsx
-│   │   └── Contact.jsx
-│   ├── content.js        # Fichier de contenu (à personnaliser)
-│   ├── App.jsx           # Composant principal
-│   ├── main.jsx          # Point d'entrée
-│   └── index.css         # Styles globaux
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-└── README.md
-```
-
-## 🎨 Personnalisation
-
-### Modifier les couleurs
-
-Editez `tailwind.config.js` pour changer les couleurs du thème :
-
-```js
-colors: {
-  primary: {
-    // Vos couleurs personnalisées
-  }
-}
-```
-
-### Ajouter des projets
-
-Dans `src/content.js`, ajoutez vos projets dans le tableau `projects` :
-
-```js
-{
-  id: 5,
-  title: "Mon nouveau projet",
-  description: "Description courte",
-  longDescription: "Description détaillée",
-  tech: ["React", "Node.js"],
-  image: "/assets/projects/my-project.png",
-  github: "https://github.com/username/project",
-  live: "https://example.com",
-  featured: true
-}
-```
-
-### Configurer le formulaire de contact
-
-Le formulaire de contact utilise actuellement une simulation. Pour l'activer :
-
-1. **Avec Formspree** (gratuit) :
-   - Créez un compte sur [Formspree](https://formspree.io/)
-   - Récupérez votre endpoint
-   - Modifiez `src/pages/Contact.jsx` avec votre endpoint
-
-2. **Avec EmailJS** :
-   - Créez un compte sur [EmailJS](https://www.emailjs.com/)
-   - Configurez un service email
-   - Installez : `npm install @emailjs/browser`
-
-## 🚀 Déploiement
-
-### Vercel (Recommandé)
-
-1. Poussez votre code sur GitHub
-2. Connectez votre repo à [Vercel](https://vercel.com)
-3. Vercel détectera automatiquement Vite et déploiera
-
-### Netlify
-
-1. Poussez votre code sur GitHub
-2. Connectez votre repo à [Netlify](https://www.netlify.com)
-3. Paramètres de build :
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-
-### GitHub Pages
-
-Voir les instructions dans `deploy_instructions.md`
-
-## 📝 Notes importantes
-
-- Les images de projets doivent être placées dans `public/assets/projects/`
-- Le CV PDF peut être ajouté dans `public/CV.pdf` et le lien dans `src/pages/CV.jsx`
-- Les animations 3D sont automatiquement désactivées sur mobile pour les performances
-- Assurez-vous de remplacer tous les placeholders avant le déploiement
-
-## 🛠️ Technologies utilisées
-
-- **React 18** - Bibliothèque UI
-- **Vite** - Build tool et dev server
-- **Tailwind CSS** - Framework CSS
-- **React Three Fiber** - Rendu 3D
-- **Three.js** - Bibliothèque 3D
-- **@react-three/drei** - Helpers pour R3F
-- **Framer Motion** - Animations
-- **React Router** - Navigation
-- **React Intersection Observer** - Animations au scroll
-
-## 📄 Licence
-
-Ce projet est libre d'utilisation pour votre portfolio personnel.
-
-## 🤝 Contribution
-
-N'hésitez pas à ouvrir une issue ou une pull request si vous souhaitez améliorer ce portfolio !
+</div>
 
 ---
 
-**Créé avec ❤️ pour les développeurs passionnés**
+## 🌟 Overview
 
+This is the personal portfolio web application of **Amine Arheche** — Full-Stack Software Engineer & Creative Technologist based in **Morocco 🇲🇦**.
+
+Built with **React**, **Vite**, and **Tailwind CSS**, it features a dark glassmorphic design system, an interactive C-struct terminal, a real-time Web Audio API oscilloscope synthesizer, and an engineering showcase featuring all major systems and platforms.
+
+---
+
+## 🚀 Featured Engineering Projects
+
+| Project | Domain | Technologies | Highlights |
+|---|---|---|---|
+| **[AuraLink](https://github.com/AmineArheche/custom-link-shortener)** | Full-Stack & Telemetry | React 19, FastAPI, SQLAlchemy, Chart.js, Docker | Sub-5ms HTTP 307 redirects, non-blocking User-Agent telemetry, QR Code Studio, Anti-SSRF defenses. |
+| **[Horti-Innov](https://github.com/AmineArheche/Gestion-de-Stock)** | Desktop ERP & Stock | Python, Tkinter, MySQL, ReportLab, OpenPyXL | Self-contained zero-install portable MySQL engine, 14 database tables, automated PDF invoices with legal stamps. |
+| **[Solar Energy Platform](https://github.com/AmineArheche/solar-energy-platform)** | E-Commerce & Sizing | PHP, MySQL, JavaScript, Tailwind CSS | Multi-step interactive solar energy calculator, battery bank sizing algorithms, and inventory management. |
+| **[AutoLoc](https://github.com/AmineArheche/location-prjt)** | Fleet & Car Rental | Python, CustomTkinter, SQLite/MySQL, Matplotlib | Fleet availability tracking, automated client rental agreements, and financial ledger management. |
+| **[TaskFlow Pro](https://github.com/AmineArheche/todo-list)** | Productivity App | JavaScript (ES6+), LocalStorage, CSS3 Glassmorphism | Drag & toggle priority matrix, instant local persistence, and distraction-free UI. |
+
+---
+
+## 🎧 The Creative Lab (Sonic & Audio Dimension)
+
+An interactive Web Audio API DSP environment embedded directly in the browser:
+* **Interactive Canvas Oscilloscope**: Real-time rendering of mathematical waveform trajectories (Sine, Sawtooth, Triangle).
+* **432 Hz Pure Tone Generator**: Web Audio oscillator allowing real-time frequency modulation and acoustic auditioning.
+* **Harmonic Philosophy**: Bridging the analytical rigor of software architecture with the emotional resonance of music.
+
+---
+
+## 🛠️ Local Development
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/AmineArheche/portofolio-site-.git
+cd portofolio-site-
+
+# 2. Install dependencies
+npm install --legacy-peer-deps
+
+# 3. Start development server
+npm run dev
+
+# 4. Build for production
+npm run build
+```
+
+---
+
+## 🌐 Deploy to GitHub Pages (1-Click)
+
+This portfolio is configured to build cleanly and deploy to **GitHub Pages**, **Vercel**, or **Netlify**:
+
+```bash
+npm run build
+# The production bundle is compiled into dist/ ready for static hosting.
+```
+
+---
+
+## 📄 License
+
+This portfolio is open-source under the [MIT License](LICENSE).
