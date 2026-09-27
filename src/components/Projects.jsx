@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { projectsData } from '../data/portfolioData';
+import { getGitHubRepositories, mergeProjectsWithGitHub } from '../services/githubService';
 import ProjectModal from './ProjectModal';
 import { 
   Code2, ExternalLink, ArrowUpRight, 
-  Layers, Sparkles, Filter, Info, Terminal, Activity
+  Layers, Sparkles, Filter, Info, Terminal, Activity,
+  GitBranch, RefreshCw
 } from 'lucide-react';
 import { Github } from './Icons';
 
 export default function Projects() {
   const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projects, setProjects] = useState(projectsData);
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function syncRepositories() {
+      setIsSyncing(true);
+      try {
+        const liveRepos = await getGitHubRepositories();
+        if (isMounted && Array.isArray(liveRepos) && liveRepos.length > 0) {
+          const merged = mergeProjectsWithGitHub(projectsData, liveRepos);
+          setProjects(merged);
+        }
+      } catch (err) {
+        console.warn('GitHub synchronization error:', err);
+      } finally {
+        if (isMounted) setIsSyncing(false);
+      }
+    }
+
+    syncRepositories();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const categories = [
     { id: 'all', label: 'All Projects' },
@@ -19,17 +46,19 @@ export default function Projects() {
   ];
 
   const filteredProjects = filter === 'all' 
-    ? projectsData 
-    : projectsData.filter((p) => p.category === filter);
+    ? projects 
+    : projects.filter((p) => p.category === filter);
 
   return (
     <section id="projects" className="py-24 relative z-10 bg-gradient-to-b from-transparent via-[#090d16]/50 to-transparent">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-16">
-          <span className="font-mono text-xs uppercase tracking-widest text-sky-400 mb-2">
-            // ENGINEERING SHOWCASE
-          </span>
+          <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>GitHub Sync Active &bull; {projects.length} Repositories</span>
+          </div>
+
           <h2 className="font-heading font-black text-3xl sm:text-5xl text-white">
             Featured Systems <span className="text-slate-500 font-light">&</span> Architecture
           </h2>
@@ -77,12 +106,20 @@ export default function Projects() {
                   <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/5">
                     {project.category}
                   </span>
-                  {project.featured && (
-                    <span className="flex items-center gap-1 font-mono text-[10px] text-amber-400 font-semibold px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
-                      <Sparkles size={10} />
-                      <span>Featured</span>
-                    </span>
-                  )}
+                  <div className="flex items-center gap-1.5">
+                    {project.isAutoSynced && (
+                      <span className="flex items-center gap-1 font-mono text-[10px] text-cyan-400 font-semibold px-2 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
+                        <GitBranch size={10} />
+                        <span>Live Sync</span>
+                      </span>
+                    )}
+                    {project.featured && (
+                      <span className="flex items-center gap-1 font-mono text-[10px] text-amber-400 font-semibold px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
+                        <Sparkles size={10} />
+                        <span>Featured</span>
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Title */}
