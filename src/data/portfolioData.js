@@ -117,30 +117,65 @@ export const projectsData = [
     featured: true,
     tagline: "E-Commerce Platform with Interactive Solar Energy Sizing Calculator",
     description: "Full-scale solar equipment platform featuring interactive energy consumption calculators, battery storage sizing algorithms, inverter estimation, and automated inventory management.",
-    longDescription: "A specialized platform addressing renewable energy adoption. Users can calculate their exact solar installation requirements by inputting household appliances and consumption patterns, receiving instant recommendations for solar panels, inverters, and battery banks with real-time stock availability and cost estimation.",
-    technologies: ["PHP", "MySQL", "JavaScript", "Tailwind CSS", "Chart.js", "REST APIs"],
+    longDescription: "A specialized platform addressing renewable energy adoption developed for a solar distribution enterprise. Enables customers to calculate exact photovoltaic system specifications based on appliance loads and solar irradiation, alongside an administrative suite managing equipment catalogues, stock levels, and fiscal orders.",
+    technologies: ["PHP 8.x", "MySQL", "JavaScript (ES6+)", "Tailwind CSS", "Bootstrap", "MVC Architecture"],
     metrics: [
-      { label: "Sizing Algorithm", value: "Real-Time" },
-      { label: "Product Catalog", value: "100+ Items" },
-      { label: "Estimation Precision", value: "95%" }
+      { label: "Calculateur", value: "Temps Réel" },
+      { label: "Catalogue", value: "100+ Articles" },
+      { label: "Architecture", value: "MVC Sécurisé" }
     ],
     github: "https://github.com/AmineArheche/solar-energy-platform",
     live: null,
     color: "#f59e0b",
-    coverImage: "/assets/screens/solar-energy/solar-inverter-installation.jpg",
+    coverImage: "/assets/screens/solar-energy/solar-admin-dashboard.png",
     screenshots: [
       { 
-        url: "/assets/screens/solar-energy/solar-inverter-installation.jpg", 
-        caption: "Solar Inverter & Power Management System", 
-        description: "Real-world installation of photovoltaic inverter and control box." 
+        url: "/assets/screens/solar-energy/solar-admin-dashboard.png", 
+        caption: "Tableau de Bord Administrateur & Stock Solaire", 
+        description: "Vue analytique avec KPIs de valorisation du stock, répartition graphique par catégorie et gestion des alertes." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-calculateur-besoins.png", 
+        caption: "Calculateur de Besoins Énergétiques Solaires", 
+        description: "Algorithme de dimensionnement calculant la puissance crête nécessaire, le nombre de panneaux et la capacité batterie en Ah." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-user-dashboard.png", 
+        caption: "Espace Client & Catalogue Recommandé", 
+        description: "Dashboard utilisateur personnalisé avec suggestions d'équipements solaires, onduleurs Victron et batteries lithium." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-gestion-produits.png", 
+        caption: "Gestion des Équipements & Stocks", 
+        description: "Interface CRUD avec recherche instantanée, filtres par marque et gestion des prix en dirhams (DH)." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-paiement-panier.png", 
+        caption: "Passerelle de Commande & Paiement", 
+        description: "Panier d'achat interactif avec calcul des frais, récapitulatif fiscal TVA et passerelle bancaire sécurisée." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-gestion-categories.png", 
+        caption: "Architecture des Catégories Solaires", 
+        description: "Hiérarchie des équipements : panneaux photovoltaïques, onduleurs hybrides, batteries et motopompes solaires." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-a-propos.png", 
+        caption: "Page À Propos — SolarTech", 
+        description: "Présentation de l'entreprise, de sa mission environnementale et de ses certifications professionnelles." 
+      },
+      { 
+        url: "/assets/screens/solar-energy/solar-contact.png", 
+        caption: "Support & Formulaire de Contact", 
+        description: "Coordonnées de l'agence (Imouzzer-Kandar), contact direct de l'équipe et formulaire de messagerie." 
       }
     ],
     highlights: [
-      "Interactive multi-step energy consumption calculator",
-      "Battery bank & photovoltaic panel capacity sizing logic",
-      "E-commerce storefront with cart, checkout, and order lifecycle",
-      "Administrative dashboard for inventory and product management",
-      "Responsive mobile-first user experience"
+      "Calculateur algorithmique de dimensionnement photovoltaïque et capacité batterie",
+      "Tableau de bord administrateur avec graphiques statistiques et suivi des stocks",
+      "Catalogue e-commerce complet avec fiches techniques détaillées (Panneaux, Onduleurs, Batteries)",
+      "Architecture MVC sécurisée en PHP avec requêtes préparées PDO contre les injections SQL",
+      "Espace client authentifié et modal de commande avec intégration bancaire"
     ]
   },
   {
