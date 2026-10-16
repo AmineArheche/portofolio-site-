@@ -419,14 +419,14 @@ export const projectsData = [
     ]
   },
   {
-    id: "khawatim-rouhania",
-    title: "Khawatim Rouhania — Flash USB E-Commerce Store",
+    id: "flash-usb",
+    title: "Flash USB — E-Commerce Store & Checkout",
     category: "web",
     featured: false,
-    tagline: "High-Conversion Single-Product E-Commerce Landing Page",
-    description: "Fast-loading, high-conversion e-commerce landing page optimized for cash-on-delivery (COD) transactions, featuring countdown timers and stock scarcity cues.",
-    longDescription: "Engineered specifically for high-velocity direct-response marketing. Features an integrated checkout form, animated urgency countdown timers, live stock counter depletion triggers, and automatic WhatsApp order confirmation dispatching.",
-    technologies: ["PHP", "JavaScript", "Tailwind CSS", "WhatsApp API", "LocalStorage"],
+    tagline: "High-Conversion Direct-Response E-Commerce Landing Page",
+    description: "Fast-loading, high-conversion single-product e-commerce platform optimized for direct response and cash-on-delivery (COD) transactions, featuring dynamic flash pricing tiers and stock scarcity cues.",
+    longDescription: "Engineered specifically for high-velocity direct-response digital marketing. Features an integrated single-click checkout form, dynamic flash bundle selectors, animated urgency countdown timers, live stock depletion triggers, and automated order confirmation workflows.",
+    technologies: ["PHP", "JavaScript", "Tailwind CSS", "LocalStorage API", "Responsive UI"],
     metrics: [
       { label: "Checkout Model", value: "Cash on Delivery" },
       { label: "Conversion Rate", value: "Optimized" },
@@ -435,29 +435,20 @@ export const projectsData = [
     github: "https://github.com/AmineArheche",
     live: null,
     color: "#10b981",
-    coverImage: "/assets/screens/khawatim-rouhania/khawatim-offer.png",
+    coverImage: "/assets/screens/flash-usb/flash-usb.png",
     screenshots: [
       { 
-        url: "/assets/screens/khawatim-rouhania/khawatim-offer.png", 
-        caption: "Direct-Response Promotional Landing", 
-        description: "Urgency-driven product presentation with countdown timer and legal proof." 
-      },
-      { 
-        url: "/assets/screens/khawatim-rouhania/khawatim-stock.png", 
-        caption: "Stock Scarcity & Social Proof", 
-        description: "Live stock scarcity indicators and cash-on-delivery guarantee banners." 
-      },
-      { 
-        url: "/assets/screens/khawatim-rouhania/khawatim-delivery.png", 
-        caption: "Streamlined Cash-on-Delivery Checkout", 
-        description: "Simplified order placement with automatic geographic position verification." 
+        url: "/assets/screens/flash-usb/flash-usb.png", 
+        caption: "Flash USB Order & Pricing Configuration", 
+        description: "High-conversion checkout experience with flash bundle options and instant customer form." 
       }
     ],
     highlights: [
+      "Dynamic flash bundle selection with live price recalculation",
       "Urgency countdown timer with session persistence",
       "Live stock scarcity triggers increasing conversion rates",
       "Frictionless 1-click Cash on Delivery order processing",
-      "Automated WhatsApp notification dispatch for instant dispatch confirmation"
+      "Ultra-fast loading times with lightweight zero-dependency assets"
     ]
   },
   {
