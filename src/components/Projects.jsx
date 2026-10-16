@@ -5,7 +5,7 @@ import ProjectModal from './ProjectModal';
 import { 
   Code2, ExternalLink, ArrowUpRight, 
   Layers, Sparkles, Filter, Info, Terminal, Activity,
-  GitBranch, RefreshCw, Camera, Eye
+  GitBranch, RefreshCw, Camera, Eye, Cpu
 } from 'lucide-react';
 import { Github } from './Icons';
 
@@ -85,128 +85,162 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {/* Projects Grid — Uniform Constant Height Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="glass-panel group flex flex-col justify-between overflow-hidden relative border-white/[0.08] hover:border-sky-500/40 hover:-translate-y-1.5 transition-all duration-300"
+              className="glass-panel group flex flex-col justify-between overflow-hidden relative border-white/[0.08] hover:border-sky-500/40 hover:-translate-y-1.5 transition-all duration-300 h-full rounded-2xl"
             >
-              {/* Visual Preview / Screenshot Banner */}
-              {project.coverImage ? (
-                <div 
-                  onClick={() => setSelectedProject(project)}
-                  className="relative h-48 w-full overflow-hidden bg-black/40 cursor-pointer border-b border-white/5"
-                >
-                  <img 
-                    src={project.coverImage} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-75" />
-                  
-                  {/* Subtle Ambient Color Glow Accent */}
-                  <div 
-                    className="absolute top-0 left-0 right-0 h-1 transition-all duration-500"
-                    style={{ 
-                      background: `linear-gradient(90deg, ${project.color || '#38bdf8'}, transparent)` 
-                    }} 
-                  />
-
-                  {project.screenshots && project.screenshots.length > 0 && (
-                    <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono text-slate-200 flex items-center gap-1.5 shadow-md">
-                      <Camera size={12} className="text-sky-400" />
-                      <span>{project.screenshots.length} Screens</span>
+              {/* Constant Height Preview Banner (208px = h-52) */}
+              <div 
+                onClick={() => setSelectedProject(project)}
+                className="relative h-52 w-full overflow-hidden bg-[#070b14] cursor-pointer border-b border-white/5 select-none shrink-0"
+              >
+                {project.coverImage ? (
+                  <>
+                    <img 
+                      src={project.coverImage} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy"
+                      onError={(e) => {
+                        if (e.target.src.startsWith('/')) {
+                          e.target.src = '.' + e.target.src;
+                        }
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
+                  </>
+                ) : (
+                  /* Stylized Technical Blueprint Banner for Projects without raw screenshot */
+                  <div className="w-full h-full relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-[#0a0f1d] to-black">
+                    <div 
+                      className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]" 
+                    />
+                    <div 
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/10 shadow-xl mb-3 relative z-10"
+                      style={{ backgroundColor: `${project.color || '#38bdf8'}15` }}
+                    >
+                      <Cpu size={28} style={{ color: project.color || '#38bdf8' }} />
                     </div>
-                  )}
-
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 backdrop-blur-[2px]">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-semibold backdrop-blur-md shadow-lg">
-                      <Eye size={14} className="text-sky-400" />
-                      <span>Explore Showcase</span>
+                    <span className="font-mono text-xs text-slate-300 font-semibold tracking-wider relative z-10 uppercase">
+                      Architecture Blueprint
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-500 relative z-10 mt-0.5">
+                      3D Perspective & FSM Core
                     </span>
                   </div>
-                </div>
-              ) : (
+                )}
+                
+                {/* Subtle Ambient Color Glow Accent */}
                 <div 
-                  className="h-2 w-full transition-all duration-500"
+                  className="absolute top-0 left-0 right-0 h-1 transition-all duration-500"
                   style={{ 
                     background: `linear-gradient(90deg, ${project.color || '#38bdf8'}, transparent)` 
                   }} 
                 />
-              )}
 
-              <div className="p-7 flex-1 flex flex-col">
-                {/* Meta Badge Bar */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/5">
-                    {project.category}
-                  </span>
-                  <div className="flex items-center gap-1.5">
-                    {project.isAutoSynced && (
-                      <span className="flex items-center gap-1 font-mono text-[10px] text-cyan-400 font-semibold px-2 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
-                        <GitBranch size={10} />
-                        <span>Live Sync</span>
-                      </span>
-                    )}
-                    {project.featured && (
-                      <span className="flex items-center gap-1 font-mono text-[10px] text-amber-400 font-semibold px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
-                        <Sparkles size={10} />
-                        <span>Featured</span>
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 
-                  onClick={() => setSelectedProject(project)}
-                  className="font-heading font-black text-xl text-white group-hover:text-sky-400 transition-colors mb-2.5 cursor-pointer line-clamp-1"
-                >
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
-                  {project.description}
-                </p>
-
-                {/* Key Metrics Chips */}
-                {project.metrics && (
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    {project.metrics.slice(0, 2).map((m) => (
-                      <div key={m.label} className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 text-left">
-                        <span className="font-heading font-bold text-sm text-slate-200 block">
-                          {m.value}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400 block truncate">
-                          {m.label}
-                        </span>
-                      </div>
-                    ))}
+                {project.screenshots && project.screenshots.length > 0 && (
+                  <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono text-slate-200 flex items-center gap-1.5 shadow-md">
+                    <Camera size={12} className="text-sky-400" />
+                    <span>{project.screenshots.length} Screens</span>
                   </div>
                 )}
 
-                {/* Technologies Badges */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.technologies.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-white/[0.03] text-slate-300 border border-white/5"
-                    >
-                      {tech}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/35 backdrop-blur-[2px]">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/15 border border-white/25 text-white text-xs font-semibold backdrop-blur-md shadow-xl scale-95 group-hover:scale-100 transition-transform">
+                    <Eye size={14} className="text-sky-400" />
+                    <span>Explore Showcase</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Constant Sized Card Content Area */}
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  {/* Meta Badge Bar */}
+                  <div className="flex items-center justify-between gap-2 h-6 mb-3">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/5">
+                      {project.category}
                     </span>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <span className="px-2 py-0.5 rounded-md text-[11px] font-mono text-slate-400">
-                      +{project.technologies.length - 4}
-                    </span>
-                  )}
+                    <div className="flex items-center gap-1.5">
+                      {project.isAutoSynced && (
+                        <span className="flex items-center gap-1 font-mono text-[10px] text-cyan-400 font-semibold px-2 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
+                          <GitBranch size={10} />
+                          <span>Live Sync</span>
+                        </span>
+                      )}
+                      {project.featured && (
+                        <span className="flex items-center gap-1 font-mono text-[10px] text-amber-400 font-semibold px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
+                          <Sparkles size={10} />
+                          <span>Featured</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Title — Constant Height 1 Line */}
+                  <h3 
+                    onClick={() => setSelectedProject(project)}
+                    className="font-heading font-black text-lg text-white group-hover:text-sky-400 transition-colors mb-2 cursor-pointer truncate"
+                    title={project.title}
+                  >
+                    {project.title}
+                  </h3>
+
+                  {/* Description — Fixed Height 3 Lines */}
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 h-[60px] line-clamp-3 overflow-hidden">
+                    {project.description}
+                  </p>
+
+                  {/* Key Metrics Chips — Normalized Constant 2-Column Grid */}
+                  <div className="grid grid-cols-2 gap-2 mb-4 h-[58px]">
+                    {project.metrics && project.metrics.length > 0 ? (
+                      project.metrics.slice(0, 2).map((m) => (
+                        <div key={m.label} className="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-left flex flex-col justify-center">
+                          <span className="font-heading font-bold text-xs text-slate-200 block truncate">
+                            {m.value}
+                          </span>
+                          <span className="text-[10px] font-mono text-slate-400 block truncate">
+                            {m.label}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <>
+                        <div className="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-left flex flex-col justify-center">
+                          <span className="font-heading font-bold text-xs text-slate-200 block truncate">Production</span>
+                          <span className="text-[10px] font-mono text-slate-400 block truncate">Status</span>
+                        </div>
+                        <div className="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-left flex flex-col justify-center">
+                          <span className="font-heading font-bold text-xs text-slate-200 block truncate">100% Free</span>
+                          <span className="text-[10px] font-mono text-slate-400 block truncate">Open Source</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Technologies Badges — Constant Height Single Row */}
+                  <div className="flex flex-wrap gap-1.5 mb-4 h-6 overflow-hidden">
+                    {project.technologies.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.03] text-slate-300 border border-white/5 truncate max-w-[120px]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono text-slate-400">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {/* Card Action Links */}
-                <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between mt-auto">
+                {/* Card Action Links — Always Aligned at Bottom */}
+                <div className="pt-3.5 border-t border-white/[0.08] flex items-center justify-between mt-auto">
                   <button
                     onClick={() => setSelectedProject(project)}
                     className="flex items-center gap-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors"
@@ -221,10 +255,10 @@ export default function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
+                        className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
                         title="View GitHub Repository"
                       >
-                        <Github size={16} />
+                        <Github size={15} />
                       </a>
                     )}
                     {project.live && (
@@ -232,10 +266,10 @@ export default function Projects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 hover:text-sky-300 transition-colors"
+                        className="p-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 hover:text-sky-300 transition-colors"
                         title="View Live App"
                       >
-                        <ExternalLink size={16} />
+                        <ExternalLink size={15} />
                       </a>
                     )}
                   </div>

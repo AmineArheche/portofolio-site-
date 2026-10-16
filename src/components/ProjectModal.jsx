@@ -34,7 +34,7 @@ export default function ProjectModal({ project, onClose }) {
         onClick={onClose}
       >
         <div 
-          className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto glass-panel p-5 sm:p-8 bg-[#0b0f19] border border-white/20 shadow-2xl rounded-2xl"
+          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-panel p-5 sm:p-7 bg-[#0b0f19] border border-white/20 shadow-2xl rounded-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
@@ -65,39 +65,44 @@ export default function ProjectModal({ project, onClose }) {
             </p>
           </div>
 
-          {/* Interactive Screenshot Showcase Gallery */}
+          {/* Interactive Screenshot Showcase Gallery — Constant Height Viewport */}
           {hasScreenshots && (
-            <div className="mb-8 rounded-xl overflow-hidden border border-white/10 bg-black/50 p-3 sm:p-4">
+            <div className="mb-8 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] p-3 sm:p-4">
               <div className="flex items-center justify-between mb-3 px-1">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
                   <Camera size={14} className="text-sky-400" />
-                  <span className="font-semibold text-white">System Interface & Telemetry Screens</span>
+                  <span className="font-semibold text-white">Interface & Architecture Telemetry</span>
                   <span className="text-slate-500">({activeImageIndex + 1}/{project.screenshots.length})</span>
                 </div>
                 <button
                   onClick={() => setIsFullscreen(true)}
-                  className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-400 hover:text-sky-400 transition-colors"
-                  title="Expand Fullscreen"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-sky-400 hover:text-sky-300 px-2.5 py-1 rounded bg-sky-500/10 border border-sky-500/20 transition-colors"
+                  title="Expand Fullscreen View"
                 >
                   <Maximize2 size={13} />
-                  <span>Enlarge</span>
+                  <span>Enlarge Fullscreen</span>
                 </button>
               </div>
 
-              {/* Main Featured Screenshot Display */}
-              <div className="relative group rounded-lg overflow-hidden bg-black/80 aspect-video flex items-center justify-center border border-white/5">
+              {/* Constant-Height Stage Viewport (420px desktop, 320px mobile) */}
+              <div className="relative group rounded-xl overflow-hidden bg-[#04060d] border border-white/5 w-full h-[280px] sm:h-[360px] md:h-[420px] flex items-center justify-center p-2 select-none">
                 <img 
                   src={currentScreenshot.url} 
                   alt={currentScreenshot.caption || project.title} 
-                  className="w-full h-full object-contain cursor-pointer transition-transform duration-300"
+                  className="max-w-full max-h-full w-auto h-auto object-contain cursor-pointer transition-transform duration-300 group-hover:scale-[1.01]"
                   onClick={() => setIsFullscreen(true)}
+                  onError={(e) => {
+                    if (e.target.src.startsWith('/')) {
+                      e.target.src = '.' + e.target.src;
+                    }
+                  }}
                 />
 
                 {/* Left Navigation Arrow */}
                 {project.screenshots.length > 1 && (
                   <button
                     onClick={handlePrevImage}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/15 opacity-80 group-hover:opacity-100 transition-all shadow-lg"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 opacity-80 group-hover:opacity-100 transition-all shadow-xl"
                     aria-label="Previous screenshot"
                   >
                     <ChevronLeft size={20} />
@@ -108,7 +113,7 @@ export default function ProjectModal({ project, onClose }) {
                 {project.screenshots.length > 1 && (
                   <button
                     onClick={handleNextImage}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/15 opacity-80 group-hover:opacity-100 transition-all shadow-lg"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 opacity-80 group-hover:opacity-100 transition-all shadow-xl"
                     aria-label="Next screenshot"
                   >
                     <ChevronRight size={20} />
@@ -130,9 +135,9 @@ export default function ProjectModal({ project, onClose }) {
                 </div>
               </div>
 
-              {/* Thumbnail Selector Ribbon */}
+              {/* Constant Thumbnail Selector Ribbon */}
               {project.screenshots.length > 1 && (
-                <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/5 overflow-x-auto pb-1 scrollbar-thin">
+                <div className="flex items-center gap-2.5 mt-3.5 pt-3 border-t border-white/5 overflow-x-auto pb-1.5 scrollbar-thin">
                   {project.screenshots.map((screen, idx) => (
                     <button
                       key={idx}
@@ -140,13 +145,18 @@ export default function ProjectModal({ project, onClose }) {
                       className={`relative shrink-0 w-20 h-14 rounded-lg overflow-hidden border transition-all ${
                         activeImageIndex === idx 
                           ? 'border-sky-400 ring-2 ring-sky-400/40 scale-105 opacity-100' 
-                          : 'border-white/10 opacity-50 hover:opacity-80'
+                          : 'border-white/10 opacity-50 hover:opacity-85'
                       }`}
                     >
                       <img 
                         src={screen.url} 
                         alt={screen.caption || `Thumbnail ${idx + 1}`} 
-                        className="w-full h-full object-cover" 
+                        className="w-full h-full object-cover object-top" 
+                        onError={(e) => {
+                          if (e.target.src.startsWith('/')) {
+                            e.target.src = '.' + e.target.src;
+                          }
+                        }}
                       />
                     </button>
                   ))}
@@ -267,6 +277,11 @@ export default function ProjectModal({ project, onClose }) {
               src={currentScreenshot.url} 
               alt={currentScreenshot.caption} 
               className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/10" 
+              onError={(e) => {
+                if (e.target.src.startsWith('/')) {
+                  e.target.src = '.' + e.target.src;
+                }
+              }}
             />
             <div className="mt-4 text-center">
               <h4 className="text-white font-bold text-lg">{currentScreenshot.caption}</h4>
