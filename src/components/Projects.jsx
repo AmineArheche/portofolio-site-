@@ -5,7 +5,7 @@ import ProjectModal from './ProjectModal';
 import { 
   Code2, ExternalLink, ArrowUpRight, 
   Layers, Sparkles, Filter, Info, Terminal, Activity,
-  GitBranch, RefreshCw
+  GitBranch, RefreshCw, Camera, Eye
 } from 'lucide-react';
 import { Github } from './Icons';
 
@@ -39,10 +39,10 @@ export default function Projects() {
   }, []);
 
   const categories = [
-    { id: 'all', label: 'All Projects' },
+    { id: 'all', label: 'All Systems' },
     { id: 'fullstack', label: 'Full-Stack & APIs' },
-    { id: 'desktop', label: 'Python & Desktop Systems' },
-    { id: 'web', label: 'Web Applications' },
+    { id: 'desktop', label: 'Python & Desktop ERP' },
+    { id: 'web', label: 'Web Applications & SaaS' },
   ];
 
   const filteredProjects = filter === 'all' 
@@ -56,15 +56,15 @@ export default function Projects() {
         <div className="flex flex-col items-center text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>GitHub Sync Active &bull; {projects.length} Repositories</span>
+            <span>Showcase & Live Telemetry &bull; {projects.length} Engineering Works</span>
           </div>
 
           <h2 className="font-heading font-black text-3xl sm:text-5xl text-white">
             Featured Systems <span className="text-slate-500 font-light">&</span> Architecture
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-600 rounded-full mt-4" />
-          <p className="mt-4 text-slate-400 max-w-xl text-sm sm:text-base">
-            Production-grade systems, tools, and platforms engineered with performance, security, and clean architecture in mind.
+          <p className="mt-4 text-slate-400 max-w-2xl text-sm sm:text-base">
+            Production-grade systems, desktop suites, aerology platforms, and web APIs engineered with performance, precision, and clean architecture.
           </p>
         </div>
 
@@ -92,13 +92,50 @@ export default function Projects() {
               key={project.id}
               className="glass-panel group flex flex-col justify-between overflow-hidden relative border-white/[0.08] hover:border-sky-500/40 hover:-translate-y-1.5 transition-all duration-300"
             >
-              {/* Subtle Ambient Color Glow Header */}
-              <div 
-                className="h-2 w-full transition-all duration-500"
-                style={{ 
-                  background: `linear-gradient(90deg, ${project.color || '#38bdf8'}, transparent)` 
-                }} 
-              />
+              {/* Visual Preview / Screenshot Banner */}
+              {project.coverImage ? (
+                <div 
+                  onClick={() => setSelectedProject(project)}
+                  className="relative h-48 w-full overflow-hidden bg-black/40 cursor-pointer border-b border-white/5"
+                >
+                  <img 
+                    src={project.coverImage} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-75" />
+                  
+                  {/* Subtle Ambient Color Glow Accent */}
+                  <div 
+                    className="absolute top-0 left-0 right-0 h-1 transition-all duration-500"
+                    style={{ 
+                      background: `linear-gradient(90deg, ${project.color || '#38bdf8'}, transparent)` 
+                    }} 
+                  />
+
+                  {project.screenshots && project.screenshots.length > 0 && (
+                    <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono text-slate-200 flex items-center gap-1.5 shadow-md">
+                      <Camera size={12} className="text-sky-400" />
+                      <span>{project.screenshots.length} Screens</span>
+                    </div>
+                  )}
+
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 backdrop-blur-[2px]">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-semibold backdrop-blur-md shadow-lg">
+                      <Eye size={14} className="text-sky-400" />
+                      <span>Explore Showcase</span>
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div 
+                  className="h-2 w-full transition-all duration-500"
+                  style={{ 
+                    background: `linear-gradient(90deg, ${project.color || '#38bdf8'}, transparent)` 
+                  }} 
+                />
+              )}
 
               <div className="p-7 flex-1 flex flex-col">
                 {/* Meta Badge Bar */}
@@ -123,7 +160,10 @@ export default function Projects() {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-heading font-black text-xl text-white group-hover:text-sky-400 transition-colors mb-2.5">
+                <h3 
+                  onClick={() => setSelectedProject(project)}
+                  className="font-heading font-black text-xl text-white group-hover:text-sky-400 transition-colors mb-2.5 cursor-pointer line-clamp-1"
+                >
                   {project.title}
                 </h3>
 
@@ -172,7 +212,7 @@ export default function Projects() {
                     className="flex items-center gap-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors"
                   >
                     <Info size={14} />
-                    <span>Deep Dive</span>
+                    <span>Deep Dive & Gallery</span>
                   </button>
 
                   <div className="flex items-center gap-2">
